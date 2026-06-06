@@ -1,0 +1,28 @@
+# @package _global_
+defaults:
+  - mas_offset/rich_motion2dmv/baseline
+  - /network/mas/mdm_offset@model.pipeline.args_denoiser2d
+  - /network/mas/mdmmv_offset@model.pipeline.args_denoisermv
+
+exp_name_base: "mdm"
+exp_name_var: "test"
+
+
+data:
+  dataset_opts:
+    N_views: 4
+    is_cam_rel2human: False
+  loader_opts:
+    train:
+      batch_size: 16 # 8G
+      # batch_size: 32 # >12G
+
+model:
+  pipeline:
+    args:
+      diffusion_steps: 100
+
+      is_hastext: True
+      is_freeze2d: True
+
+      is_worldnoise: True

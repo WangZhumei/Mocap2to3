@@ -1,0 +1,7 @@
+# @package _global_
+defaults:
+  - mas_offset_coco/motion2d/baseline
+  - /network/mas/mdm_offset_coco@model.pipeline.args_denoiser2d
+
+exp_name_base: "mdm"
+exp_name_var: "coco_aist"

@@ -1,0 +1,106 @@
+# definition of lightning datamodule (dataset + dataloader)
+_target_: hmr4d.datamodule.general_datamodule_v2.GeneralDataModule
+name: 2dmotionmv_persp_richcam_offset
+
+dataset_opts:
+  root: "inputs/hml3d/joints3d.pth"
+  is_ignore_transl: False
+  is_root_next: False
+  required_text: null
+  anti_text: null
+  is_uniform_views: True
+  N_views: 4
+  is_cam_rel2human: False
+  is_pinhole: True
+  train_fps: 30
+  distance: 4.5
+  #is_notext: False
+  is_notext: True
+  img_H: 3008
+  img_W: 4112
+  pm_W: 224
+  train:
+    # HumanML3D
+    - _target_: hmr4d.dataset.HumanML3D.motion2d_train.MVRichPointMapDataset
+      split: "train_val"
+      root: ${data.dataset_opts.root}
+      is_ignore_transl: ${data.dataset_opts.is_ignore_transl}
+      is_root_next: ${data.dataset_opts.is_root_next}
+      is_pinhole: ${data.dataset_opts.is_pinhole}
+      train_fps: ${data.dataset_opts.train_fps}
+      distance: ${data.dataset_opts.distance}
+      is_notext: ${data.dataset_opts.is_notext}
+      required_text: ${data.dataset_opts.required_text}
+      anti_text: ${data.dataset_opts.anti_text}
+      is_uniform_views: ${data.dataset_opts.is_uniform_views}
+      N_views: ${data.dataset_opts.N_views}
+      is_cam_rel2human: ${data.dataset_opts.is_cam_rel2human}
+      limit_size: null
+      img_H: ${data.dataset_opts.img_H}
+      img_W: ${data.dataset_opts.img_W}
+      pm_W: ${data.dataset_opts.pm_W}
+    # AMASS 
+    - _target_: hmr4d.dataset.AMASS.motion2d_train.MVRichPointMapDataset
+      #split: "train_val"
+      root: inputs/amass/joints3d.pth
+      is_ignore_transl: ${data.dataset_opts.is_ignore_transl}
+      is_root_next: ${data.dataset_opts.is_root_next}
+      is_pinhole: ${data.dataset_opts.is_pinhole}
+      train_fps: ${data.dataset_opts.train_fps}
+      distance: ${data.dataset_opts.distance}
+      is_notext: ${data.dataset_opts.is_notext}
+      required_text: ${data.dataset_opts.required_text}
+      anti_text: ${data.dataset_opts.anti_text}
+      is_uniform_views: ${data.dataset_opts.is_uniform_views}
+      N_views: ${data.dataset_opts.N_views}
+      is_cam_rel2human: ${data.dataset_opts.is_cam_rel2human}
+      limit_size: null
+      img_H: ${data.dataset_opts.img_H}
+      img_W: ${data.dataset_opts.img_W}
+      pm_W: ${data.dataset_opts.pm_W}
+    # BEDLAM
+    - _target_: hmr4d.dataset.BEDLAM.motion2d_train.MVRichPointMapDataset
+      #split: "train_val"
+      root: inputs/bedlam/joints3d.pth
+      is_ignore_transl: ${data.dataset_opts.is_ignore_transl}
+      is_root_next: ${data.dataset_opts.is_root_next}
+      is_pinhole: ${data.dataset_opts.is_pinhole}
+      train_fps: ${data.dataset_opts.train_fps}
+      distance: ${data.dataset_opts.distance}
+      is_notext: ${data.dataset_opts.is_notext}
+      required_text: ${data.dataset_opts.required_text}
+      anti_text: ${data.dataset_opts.anti_text}
+      is_uniform_views: ${data.dataset_opts.is_uniform_views}
+      N_views: ${data.dataset_opts.N_views}
+      is_cam_rel2human: ${data.dataset_opts.is_cam_rel2human}
+      limit_size: null
+      img_H: ${data.dataset_opts.img_H}
+      img_W: ${data.dataset_opts.img_W}
+      pm_W: ${data.dataset_opts.pm_W}
+    # H36M
+    - _target_: hmr4d.dataset.H36M.motion2d_train.MVRichPointMapDataset
+      #split: "train_val"
+      root: inputs/h36m/joints3d.pth
+      is_ignore_transl: ${data.dataset_opts.is_ignore_transl}
+      is_root_next: ${data.dataset_opts.is_root_next}
+      is_pinhole: ${data.dataset_opts.is_pinhole}
+      train_fps: ${data.dataset_opts.train_fps}
+      distance: ${data.dataset_opts.distance}
+      is_notext: ${data.dataset_opts.is_notext}
+      required_text: ${data.dataset_opts.required_text}
+      anti_text: ${data.dataset_opts.anti_text}
+      is_uniform_views: ${data.dataset_opts.is_uniform_views}
+      N_views: ${data.dataset_opts.N_views}
+      is_cam_rel2human: ${data.dataset_opts.is_cam_rel2human}
+      limit_size: null
+      img_H: ${data.dataset_opts.img_H}
+      img_W: ${data.dataset_opts.img_W}
+      pm_W: ${data.dataset_opts.pm_W}
+  
+loader_opts:
+  train:
+    batch_size: 64 # on one gpu
+    num_workers: 4
+  val:
+    batch_size: 1
+    num_workers: 1

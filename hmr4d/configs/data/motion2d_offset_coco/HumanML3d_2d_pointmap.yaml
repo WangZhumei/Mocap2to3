@@ -1,0 +1,44 @@
+# definition of lightning datamodule (dataset + dataloader)
+_target_: hmr4d.datamodule.general_datamodule_v2.GeneralDataModule
+name: 2dmotion_offset_aistcam_coco
+
+dataset_opts:
+  #root: "inputs/RICH"
+  is_ignore_transl: False
+  is_root_next: False
+  required_text: null
+  anti_text: null
+  is_uniform_views: True
+  is_cam_rel2human: False
+  is_pinhole: True
+  train_fps: 30
+  distance: 4.5
+  is_notext: True
+  img_H: 1080
+  img_W: 1920
+  pm_W: 224
+  train:
+    # HumanML3D
+    - _target_: hmr4d.dataset.HumanML3D.motion2d_train_coco.PointMapTrainDataset
+      split: "train_val"
+      root: inputs/hml3d/joints3d_coco.pth
+      is_ignore_transl: ${data.dataset_opts.is_ignore_transl}
+      is_root_next: ${data.dataset_opts.is_root_next}
+      is_pinhole: ${data.dataset_opts.is_pinhole}
+      train_fps: ${data.dataset_opts.train_fps}
+      distance: ${data.dataset_opts.distance}
+      is_notext: ${data.dataset_opts.is_notext}
+      limit_size: null # 100 for fast debug
+      img_H: ${data.dataset_opts.img_H}
+      img_W: ${data.dataset_opts.img_W}
+      pm_W: 224
+    
+
+loader_opts:
+  train:
+    #batch_size: 32 # on one gpu
+    batch_size: 224 # on one gpu
+    num_workers: 4
+  val:
+    batch_size: 1
+    num_workers: 1

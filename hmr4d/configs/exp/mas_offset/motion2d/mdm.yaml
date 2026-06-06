@@ -1,0 +1,12 @@
+# @package _global_
+defaults:
+  - mas_offset/motion2d/baseline
+  - /network/mas/mdm_offset@model.pipeline.args_denoiser2d
+
+exp_name_base: "mdm"
+exp_name_var: "smpl_rich"
+
+# model:
+#   pipeline:
+#     args:
+#       diffusion_steps: 100

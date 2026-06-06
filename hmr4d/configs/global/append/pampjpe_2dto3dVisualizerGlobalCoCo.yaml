@@ -1,0 +1,10 @@
+# @package _global_
+
+callbacks:
+  o3d_vis_2dto3d:
+    _target_: hmr4d.utils.callbacks.pampjpe_global_motion2dto3dcoco.PampjpeMotion2Dto3DVisualizerGlobalCoCo
+    skeleton_type: gym
+    endecoder_opt:
+      _target_: hmr4d.model.mas.utils.motion3d_endecoder.Hmlvec263OriginalEnDecoder
+      stats_module: hmr4d.network.evaluator.statistics
+      stats_name: T2M_VEC

@@ -1,0 +1,28 @@
+# @package _global_
+defaults:
+  - override /data: motion2dmv_offset_test/RICH_test
+  - override /callbacks: null
+  - _self_
+
+task: test
+
+# utilities in the entry file
+# will not override previous setting if already set
+ckpt_path: ???
+ckpt_type: pl
+
+seed: 42
+
+# Callbacks
+callbacks:
+  metric_generation:
+    _target_: hmr4d.model.mas.callbacks.metric_pampjpe_global.MetricPAMPJPEGlobal
+    endecoder_opt:
+      _target_: hmr4d.model.mas.utils.motion3d_endecoder.Hmlvec263OriginalEnDecoder
+      stats_module: hmr4d.network.evaluator.statistics
+      stats_name: T2M_VEC
+
+# lightning utilities
+pl_trainer:
+  devices: 1
+logger: null

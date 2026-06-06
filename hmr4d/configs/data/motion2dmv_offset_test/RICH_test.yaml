@@ -1,0 +1,46 @@
+# definition of lightning datamodule (dataset + dataloader)
+_target_: hmr4d.datamodule.general_datamodule_v2.GeneralDataModule
+name: 2dmotionmv_persp_richcam_offset
+
+dataset_opts:
+  root: "inputs/RICH"
+  is_ignore_transl: False
+  is_root_next: False
+  required_text: null
+  anti_text: null
+  is_uniform_views: True
+  N_views: 4
+  is_cam_rel2human: False
+  is_pinhole: True
+  train_fps: 30
+  distance: 4.5
+  is_notext: False
+  eleva_angle: 5
+  img_H: 3008
+  img_W: 4112
+  pm_W: 224
+  test:
+    - _target_: hmr4d.dataset.rich.rich_motion_multiview_test.Dataset
+      split: "test_gen3v"
+      root: ${data.dataset_opts.root}
+      is_ignore_transl: ${data.dataset_opts.is_ignore_transl}
+      is_root_next: ${data.dataset_opts.is_root_next}
+      is_pinhole: ${data.dataset_opts.is_pinhole}
+      train_fps: ${data.dataset_opts.train_fps}
+      distance: ${data.dataset_opts.distance}
+      is_notext: ${data.dataset_opts.is_notext}
+      eleva_angle: ${data.dataset_opts.eleva_angle}
+      required_text: ${data.dataset_opts.required_text}
+      anti_text: ${data.dataset_opts.anti_text}
+      is_uniform_views: ${data.dataset_opts.is_uniform_views}
+      N_views: ${data.dataset_opts.N_views}
+      is_cam_rel2human: ${data.dataset_opts.is_cam_rel2human}
+      img_H: ${data.dataset_opts.img_H}
+      img_W: ${data.dataset_opts.img_W}
+      limit_size: null
+
+loader_opts:
+  test:
+    #batch_size: 16
+    batch_size: 32
+    num_workers: 1

@@ -1,0 +1,5 @@
+_target_: hmr4d.model.mas.utils.motion2d_endecoder.EuclideanEnDecoder
+stats_module: hmr4d.network.mas.statistics
+stats_name: HML3D_PERS_2D_XYWH_AISTCAM_COCO
+J: 19 # coco17+2 
+C: 2 

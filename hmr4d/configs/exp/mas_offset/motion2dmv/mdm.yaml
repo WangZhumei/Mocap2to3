@@ -1,0 +1,28 @@
+# @package _global_
+defaults:
+  - mas_offset/motion2dmv/baseline
+  - /network/mas/mdmmv_offset@model.pipeline.args_denoisermv
+
+exp_name_base: "mdm"
+exp_name_var: "smpl_mv"
+
+data:
+  dataset_opts:
+    N_views: 4
+    is_cam_rel2human: False
+  loader_opts:
+    train:
+      batch_size: 39 #
+
+model:
+  pipeline:
+    args:
+      diffusion_steps: 100
+
+      is_hastext: True
+      is_freeze2d: False
+      is_2dinput: True
+
+      # Directly training MV, without worldnoise is better when inference.
+      # When finetune with 2d input, worldnoise is better when inference.
+      is_worldnoise: True

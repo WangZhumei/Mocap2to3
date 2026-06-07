@@ -12,3 +12,9 @@ __pycache__/
 *.so
 .DS_Store
 3dparty/
+
+# SSH keys accidentally generated in repo
+yes
+yes.pub
+id_ed25519
+id_ed25519.pub

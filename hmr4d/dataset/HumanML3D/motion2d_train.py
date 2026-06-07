@@ -41,12 +41,12 @@ from hmr4d.utils.geo_transform import (
 )
 import hmr4d.utils.matrix as matrix
 from hmr4d.utils.camera_utils import get_camera_mat_zface,get_camera_mat_zface_wzm, get_gt2genCamera4_90_mat_wzm,get_gt2genCamera4_Y_mat_wzm,cartesian_to_spherical
-from hmr4d.network.evaluator.word_vectorizer import WordVectorizer
 from hmr4d.utils.o3d_utils import o3d_skeleton_animation
 from hmr4d.utils.plt_utils import plt_skeleton_animation
 from hmr4d.utils.hml3d.utils import standardize_motion
 from hmr4d.dataset.motionx.utils import normalize_kp_2d,normalize_kp_2d_linear,adjust_K
 from hmr4d.utils.net_utils import trusted_torch_load
+from hmr4d.utils.text_stub import build_dummy_text_features
 import math
 
 # For exporting joints3d.pth
@@ -664,7 +664,8 @@ class MVDataset(Dataset):
     ):
         self.is_uniform_views = is_uniform_views
         self.N_views = N_views
-        self.w_vectorizer = WordVectorizer("./inputs/checkpoints/glove", "our_vab")
+        # self.w_vectorizer = WordVectorizer("./inputs/checkpoints/glove", "our_vab")
+        self.w_vectorizer = None
         if is_mm:
             self.mm_idx = np.random.permutation(len(self.idx2meta))
         super().__init__(**kwargs)
@@ -729,24 +730,23 @@ class MVRichPointMapDataset(MVCamDataset):
         caption, tokens = text_data["caption"], text_data["tokens"]
         caption = "" if self.is_notext else caption
 
-        if len(tokens) < self.max_text_len:
-            # pad with "unk"
-            tokens = ["sos/OTHER"] + tokens + ["eos/OTHER"]
-            sent_len = len(tokens)
-            tokens = tokens + ["unk/OTHER"] * (self.max_text_len + 2 - sent_len)
-        else:
-            # crop
-            tokens = tokens[: self.max_text_len]
-            tokens = ["sos/OTHER"] + tokens + ["eos/OTHER"]
-            sent_len = len(tokens)
-        pos_one_hots = []
-        word_embeddings = []
-        for token in tokens:
-            word_emb, pos_oh = self.w_vectorizer[token]
-            pos_one_hots.append(pos_oh[None, :])
-            word_embeddings.append(word_emb[None, :])
-        pos_one_hots = np.concatenate(pos_one_hots, axis=0)
-        word_embeddings = np.concatenate(word_embeddings, axis=0)
+        # if len(tokens) < self.max_text_len:
+        #     tokens = ["sos/OTHER"] + tokens + ["eos/OTHER"]
+        #     sent_len = len(tokens)
+        #     tokens = tokens + ["unk/OTHER"] * (self.max_text_len + 2 - sent_len)
+        # else:
+        #     tokens = tokens[: self.max_text_len]
+        #     tokens = ["sos/OTHER"] + tokens + ["eos/OTHER"]
+        #     sent_len = len(tokens)
+        # pos_one_hots = []
+        # word_embeddings = []
+        # for token in tokens:
+        #     word_emb, pos_oh = self.w_vectorizer[token]
+        #     pos_one_hots.append(pos_oh[None, :])
+        #     word_embeddings.append(word_emb[None, :])
+        # pos_one_hots = np.concatenate(pos_one_hots, axis=0)
+        # word_embeddings = np.concatenate(word_embeddings, axis=0)
+        word_embeddings, pos_one_hots, sent_len = build_dummy_text_features(self.max_text_len)
 
         d_s = 0.5
         N_views = self.N_views

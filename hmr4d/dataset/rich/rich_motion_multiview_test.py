@@ -41,7 +41,7 @@ from hmr4d.utils.geo_transform import (
     cvt_from_bi01_p2d,
 )
 from hmr4d.dataset.motionx.utils import generate_camera_intrinsics, normalize_keypoints_to_patch,adjust_K
-from hmr4d.network.evaluator.word_vectorizer import WordVectorizer
+from hmr4d.utils.text_stub import build_dummy_text_features
 from hmr4d.dataset.motionx.utils import normalize_kp_2d, normalize_kp_2d_linear,adjust_K, estimate_focal_length, generate_camera_intrinsics
 from hmr4d.utils.net_utils import trusted_torch_load
 
@@ -131,7 +131,8 @@ class Dataset(data.Dataset):
                     [0.0000e00, 0.0000e00, 1.0000e00],
                 ]
             )
-        self.w_vectorizer = WordVectorizer("./inputs/checkpoints/glove", "our_vab")
+        # self.w_vectorizer = WordVectorizer("./inputs/checkpoints/glove", "our_vab")
+        self.w_vectorizer = None
 
     def __len__(self):
         if self.limit_size is not None:
@@ -166,17 +167,18 @@ class Dataset(data.Dataset):
 
         caption = ""
 
-        tokens = ["sos/OTHER"]  + ["eos/OTHER"]
-        sent_len = len(tokens)
-        tokens = tokens + ["unk/OTHER"] * (self.max_text_len + 2 - sent_len)
-        pos_one_hots = []
-        word_embeddings = []
-        for token in tokens:
-            word_emb, pos_oh = self.w_vectorizer[token]
-            pos_one_hots.append(pos_oh[None, :])
-            word_embeddings.append(word_emb[None, :])
-        pos_one_hots = np.concatenate(pos_one_hots, axis=0)
-        word_embeddings = np.concatenate(word_embeddings, axis=0)
+        # tokens = ["sos/OTHER"]  + ["eos/OTHER"]
+        # sent_len = len(tokens)
+        # tokens = tokens + ["unk/OTHER"] * (self.max_text_len + 2 - sent_len)
+        # pos_one_hots = []
+        # word_embeddings = []
+        # for token in tokens:
+        #     word_emb, pos_oh = self.w_vectorizer[token]
+        #     pos_one_hots.append(pos_oh[None, :])
+        #     word_embeddings.append(word_emb[None, :])
+        # pos_one_hots = np.concatenate(pos_one_hots, axis=0)
+        # word_embeddings = np.concatenate(word_embeddings, axis=0)
+        word_embeddings, pos_one_hots, sent_len = build_dummy_text_features(self.max_text_len)
 
         if isinstance(joints_pos, np.ndarray):
             joints_pos = torch.tensor(joints_pos, dtype=torch.float32)

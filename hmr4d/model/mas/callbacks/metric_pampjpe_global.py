@@ -66,7 +66,8 @@ class MetricPAMPJPEGlobal(pl.Callback):
         self.abs_mpjpe = ListAggregator()
         self.w_mpjpe = ListAggregator()
         self.wa_mpjpe = ListAggregator()
-        self._get_t2m_evaluator()
+        # self._get_t2m_evaluator()
+        self.res = {}
 
         self.data_endecoder: Hmlvec263OriginalEnDecoder = instantiate(endecoder_opt, _recursive_=False)
         self.encoder_motion3d = self.data_endecoder.encode
@@ -121,13 +122,13 @@ class MetricPAMPJPEGlobal(pl.Callback):
             output_size=opt["dim_coemb_hidden"],
         )
         # load pretrianed
-        t2m_checkpoint = torch.load(
-            os.path.join(opt["checkpoints_dir"], "text_mot_match/model/finest.tar"),
-            map_location="cpu",
-        )
-        self.t2m_textencoder.load_state_dict(t2m_checkpoint["text_encoder"])
-        self.t2m_moveencoder.load_state_dict(t2m_checkpoint["movement_encoder"])
-        self.t2m_motionencoder.load_state_dict(t2m_checkpoint["motion_encoder"])
+        # t2m_checkpoint = torch.load(
+        #     os.path.join(opt["checkpoints_dir"], "text_mot_match/model/finest.tar"),
+        #     map_location="cpu",
+        # )
+        # self.t2m_textencoder.load_state_dict(t2m_checkpoint["text_encoder"])
+        # self.t2m_moveencoder.load_state_dict(t2m_checkpoint["movement_encoder"])
+        # self.t2m_motionencoder.load_state_dict(t2m_checkpoint["motion_encoder"])
         self.res = {}
         # freeze params
         self.t2m_textencoder.eval()
@@ -161,9 +162,9 @@ class MetricPAMPJPEGlobal(pl.Callback):
             pred_ayfz_motion[i, l:] = 0.0
 
         gt_ayfz_motion = batch["gt_motion"] 
-        word_embs = batch["word_embs"]
-        pos_onehot = batch["pos_onehot"]
-        text_length = batch["text_len"]
+        # word_embs = batch["word_embs"]
+        # pos_onehot = batch["pos_onehot"]
+        # text_length = batch["text_len"]
         seq_name = batch["data_info"]
         start_frame = batch["start_frame"]
         end_frame = batch["end_frame"]

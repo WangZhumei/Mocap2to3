@@ -34,7 +34,7 @@ from hmr4d.dataset.motionx.utils import normalize_kp_2d,normalize_kp_2d_linear,a
 from hmr4d.dataset.HumanML3D.utils import upsample_motion
 from scipy.spatial.transform import Rotation as R
 import math
-from hmr4d.network.evaluator.word_vectorizer import WordVectorizer
+from hmr4d.utils.text_stub import build_dummy_text_features
 from hmr4d.utils.net_utils import trusted_torch_load
 
 #from hmr4d.utils.vis_open3d import Model,ModelPose
@@ -235,7 +235,8 @@ class MVRichPointMapDataset(Dataset):
         #self.rich_cam = torch.load("hmr4d/dataset/rich/resource/rich_cam_sort.pth")
         self.pointmaps = self.get_pointmaps()
 
-        self.w_vectorizer = WordVectorizer("./inputs/checkpoints/glove", "our_vab")
+        # self.w_vectorizer = WordVectorizer("./inputs/checkpoints/glove", "our_vab")
+        self.w_vectorizer = None
         self.dataset_name = "BADLAM"
         super().__init__( limit_size=limit_size)
 
@@ -266,18 +267,18 @@ class MVRichPointMapDataset(Dataset):
         T_0 = compute_T_move0(joints_pos[0][None], inverse=True)  
         joints_pos = apply_T_on_points(joints_pos, T_0)  #
         caption = "" #if self.is_notext else caption
-        tokens = ["sos/OTHER"] + ["eos/OTHER"]
-        sent_len = len(tokens)
-        tokens = tokens + ["unk/OTHER"] * (self.max_text_len + 2 - sent_len)
-        
-        pos_one_hots = []
-        word_embeddings = []
-        for token in tokens:
-            word_emb, pos_oh = self.w_vectorizer[token]
-            pos_one_hots.append(pos_oh[None, :])
-            word_embeddings.append(word_emb[None, :])
-        pos_one_hots = np.concatenate(pos_one_hots, axis=0)
-        word_embeddings = np.concatenate(word_embeddings, axis=0)
+        # tokens = ["sos/OTHER"] + ["eos/OTHER"]
+        # sent_len = len(tokens)
+        # tokens = tokens + ["unk/OTHER"] * (self.max_text_len + 2 - sent_len)
+        # pos_one_hots = []
+        # word_embeddings = []
+        # for token in tokens:
+        #     word_emb, pos_oh = self.w_vectorizer[token]
+        #     pos_one_hots.append(pos_oh[None, :])
+        #     word_embeddings.append(word_emb[None, :])
+        # pos_one_hots = np.concatenate(pos_one_hots, axis=0)
+        # word_embeddings = np.concatenate(word_embeddings, axis=0)
+        word_embeddings, pos_one_hots, sent_len = build_dummy_text_features(self.max_text_len)
 
         d_s = 0.5
         N_views = self.N_views

@@ -53,19 +53,55 @@ cd ..
 
 
 ## Evaluation
-### Checkpoints
-You can download the checkpoints here:
-https://huggingface.co/juracera/Motion-2-to-3/tree/main
+### Required files
+Project assets are hosted at:
+https://huggingface.co/wzm0217/Mocap2-to-3
 
-Save the checkpoints in the following directories:
+Before evaluation, download the following files and place them under the same directory structure used in this repository.
 
-Pretrained 2D model:
-`outputs/2dmotion_offset_richcam/mdm-smpl_rich/checkpoints/last.ckpt`
+Common assets:
 
-Finetuned multi-view model:
-`outputs/2dmotionmv_persp_richcam_offset/mdm-smpl_mv/checkpoints/best.ckpt`
+- RICH test data:
+  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/inputs/RICH.tar.gz
+  Extract to `inputs/RICH/`
+- RICH resource files:
+  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/resource/rich.tar.gz
+  Extract to `hmr4d/dataset/rich/resource/`
+- CLIP weights:
+  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/inputs/checkpoints/huggingface/clip-vit-base-patch32.tar.gz
+  Extract to `inputs/checkpoints/huggingface/`
 
-**We recommend and welcome you to use this checkpoint for direct inference.**
+Evaluation checkpoints:
+
+- Pretrained 2D model checkpoint:
+  https://huggingface.co/wzm0217/Mocap2-to-3/tree/main/checkpoints
+  Save `last.ckpt` to `outputs/2dmotion_offset_richcam/mdm-smpl_rich/checkpoints/last.ckpt`
+- Finetuned multi-view model checkpoint:
+  https://huggingface.co/wzm0217/Mocap2-to-3/tree/main/checkpoints
+  Save `best.ckpt` to `outputs/2dmotionmv_persp_richcam_offset/mdm-smpl_mv/checkpoints/best.ckpt`
+
+The expected layout is:
+
+```text
+inputs/
+├── RICH/
+└── checkpoints/
+    └── huggingface/
+        └── clip-vit-base-patch32/
+hmr4d/
+└── dataset/
+    └── rich/
+        └── resource/
+outputs/
+├── 2dmotion_offset_richcam/
+│   └── mdm-smpl_rich/
+│       └── checkpoints/
+│           └── last.ckpt
+└── 2dmotionmv_persp_richcam_offset/
+    └── mdm-smpl_mv/
+        └── checkpoints/
+            └── best.ckpt
+```
 
 ### Evaluate the final model on RICH
 ```bash
@@ -77,15 +113,54 @@ The test callback saves the prediction results under `./res/rich_smpl.pth`.
 
 
 ## Training
-### Download training data
+### Required files
+Project assets are hosted at:
+https://huggingface.co/wzm0217/Mocap2-to-3
 
-We use preprocessed training data files in the format expected by this repository.
+Training uses the same common assets as evaluation, plus the following training datasets:
 
-Download the prepared data package from:
-`<TRAIN_DATA_URL>`
+- HumanML3D:
+  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/inputs/hml3d.tar.gz
+  Extract to `inputs/hml3d/`
+- BEDLAM:
+  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/inputs/bedlam.tar.gz
+  Extract to `inputs/bedlam/`
+- AMASS:
+  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/inputs/amass.tar.gz
+  Extract to `inputs/amass/`
+- H36M:
+  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/inputs/h36m.tar.gz
+  Extract to `inputs/h36m/`
 
-After downloading, place the extracted files under:
-`<TRAIN_DATA_TARGET_DIR>`
+Multi-view finetuning also requires the neutral SMPL-X model file:
+
+- Register and download the official SMPL-X model from:
+  https://smpl-x.is.tue.mpg.de
+- After downloading the model package, copy `SMPLX_NEUTRAL.npz` to:
+  `inputs/checkpoints/body_models/smplx/SMPLX_NEUTRAL.npz`
+
+This matches the directory layout expected by the `smplx` loader and by this repository.
+
+The expected training layout is:
+
+```text
+inputs/
+├── RICH/
+├── amass/
+├── bedlam/
+├── h36m/
+├── hml3d/
+└── checkpoints/
+    ├── body_models/
+    │   └── smplx/
+    │       └── SMPLX_NEUTRAL.npz
+    └── huggingface/
+        └── clip-vit-base-patch32/
+hmr4d/
+└── dataset/
+    └── rich/
+        └── resource/
+```
 
 
 ### Stage 1: pretrain on 2D data

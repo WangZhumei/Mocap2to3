@@ -158,10 +158,6 @@ inputs/
     │       └── SMPLX_NEUTRAL.npz
     └── huggingface/
         └── clip-vit-base-patch32/
-hmr4d/
-└── dataset/
-    └── rich/
-        └── resource/
 ```
 
 

@@ -80,8 +80,6 @@ Common assets:
 
 - `inputs/RICH.tar.gz`
   Extract to `inputs/RICH/`
-- `resource/rich.tar.gz`
-  Extract to `hmr4d/dataset/rich/resource/`
 - `inputs/checkpoints/huggingface/clip-vit-base-patch32.tar.gz`
   Extract to `inputs/checkpoints/huggingface/`
 

@@ -246,6 +246,7 @@ class MetricPAMPJPEGlobalCoCo(pl.Callback):
         self.pampjpe.reset()
         self.mpjpe.reset()
         self.rte.reset()
+        os.makedirs("./res", exist_ok=True)
         torch.save(self.res,'./res/aist_coco.pth')
         
         

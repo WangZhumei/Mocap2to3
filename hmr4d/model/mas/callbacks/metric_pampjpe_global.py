@@ -265,5 +265,6 @@ class MetricPAMPJPEGlobal(pl.Callback):
         self.w_mpjpe.reset()
         self.wa_mpjpe.reset()
        
+        os.makedirs("./res", exist_ok=True)
         torch.save(self.res,'./res/rich_smpl.pth')
         

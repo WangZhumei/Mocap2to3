@@ -178,6 +178,17 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 HYDRA_FULL_ERROR=1 python tools/train.py ex
 
 To visualize the prediction results saved in `./res`, first fit SMPLH vertices for each sub-sequence, then render the saved mesh `.npy` files into videos.
 
+The fitting step uses official SMPL and SMPL+H body model files. These files are not redistributed with this repository because they require separate licenses from the original model websites.
+
+- Register and download the official SMPL model from:
+  https://smpl.is.tue.mpg.de
+- Put the neutral SMPL model at:
+  `inputs/checkpoints/body_models/smpl/SMPL_NEUTRAL.pkl`
+- Register and download the official SMPL+H model from:
+  https://mano.is.tue.mpg.de
+- Put the neutral SMPL+H model at:
+  `inputs/checkpoints/body_models/smplh/SMPLH_NEUTRAL.pkl`
+
 ### Step 1: fit SMPLH vertices
 
 ```bash

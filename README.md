@@ -81,24 +81,19 @@ Before evaluation, download the following files and place them under the same di
 
 Common assets:
 
-- RICH test data:
-  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/inputs/RICH.tar.gz
+- `inputs/RICH.tar.gz`
   Extract to `inputs/RICH/`
-- RICH resource files:
-  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/resource/rich.tar.gz
+- `resource/rich.tar.gz`
   Extract to `hmr4d/dataset/rich/resource/`
-- CLIP weights:
-  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/inputs/checkpoints/huggingface/clip-vit-base-patch32.tar.gz
+- `inputs/checkpoints/huggingface/clip-vit-base-patch32.tar.gz`
   Extract to `inputs/checkpoints/huggingface/`
 
 Evaluation checkpoints:
 
-- Pretrained 2D model checkpoint:
-  https://huggingface.co/wzm0217/Mocap2-to-3/tree/main/checkpoints
-  Save `last.ckpt` to `outputs/2dmotion_offset_richcam/mdm-smpl_rich/checkpoints/last.ckpt`
-- Finetuned multi-view model checkpoint:
-  https://huggingface.co/wzm0217/Mocap2-to-3/tree/main/checkpoints
-  Save `best.ckpt` to `outputs/2dmotionmv_persp_richcam_offset/mdm-smpl_mv/checkpoints/best.ckpt`
+- `checkpoints/last.ckpt`
+  Save to `outputs/2dmotion_offset_richcam/mdm-smpl_rich/checkpoints/last.ckpt`
+- `checkpoints/best.ckpt`
+  Save to `outputs/2dmotionmv_persp_richcam_offset/mdm-smpl_mv/checkpoints/best.ckpt`
 
 The expected layout is:
 
@@ -139,17 +134,13 @@ https://huggingface.co/wzm0217/Mocap2-to-3
 
 Training uses the same common assets as evaluation, plus the following training datasets:
 
-- HumanML3D:
-  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/inputs/hml3d.tar.gz
+- `inputs/hml3d.tar.gz`
   Extract to `inputs/hml3d/`
-- BEDLAM:
-  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/inputs/bedlam.tar.gz
+- `inputs/bedlam.tar.gz`
   Extract to `inputs/bedlam/`
-- AMASS:
-  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/inputs/amass.tar.gz
+- `inputs/amass.tar.gz`
   Extract to `inputs/amass/`
-- H36M:
-  https://huggingface.co/wzm0217/Mocap2-to-3/blob/main/inputs/h36m.tar.gz
+- `inputs/h36m.tar.gz`
   Extract to `inputs/h36m/`
 
 Multi-view finetuning also requires the neutral SMPL-X model file:

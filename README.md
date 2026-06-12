@@ -1,15 +1,14 @@
 # Mocap-2-to-3: Multi-view Lifting for Monocular Motion Recovery with 2D Pretraining
 ### [Project Page](https://wangzhumei.github.io/mocap-2-to-3) | [Paper](https://arxiv.org/abs/2503.03222)
-> Mocap-2-to-3: Multi-view Lifting for Monocular Motion Recovery with 2D Pretraining 
 > [Zhumei Wang](https://wangzhumei.github.io/zhumeiwang/)<sup>\*</sup>,
-[Zechen Hu](https://wangzhumei.github.io/mocap-2-to-3)<sup>\*</sup>,
-[Ruoxi Guo](https://www.researchgate.net/profile/Ruoxi-Guo-2),
-[Huaijin Pi](https://phj128.github.io/),
-[Ziyong Feng](https://wangzhumei.github.io/mocap-2-to-3),
-[Liang Zhang](https://wangzhumei.github.io/mocap-2-to-3),
-[Mingtao Pei](https://wangzhumei.github.io/mocap-2-to-3),
-[Siyuan Huang](https://siyuanhuang.com/),
-> CVPR 2026
+> [Zechen Hu](https://wangzhumei.github.io/mocap-2-to-3)<sup>\*</sup>,
+> [Ruoxi Guo](https://www.researchgate.net/profile/Ruoxi-Guo-2),
+> [Huaijin Pi](https://phj128.github.io/),
+> [Ziyong Feng](https://wangzhumei.github.io/mocap-2-to-3),
+> [Liang Zhang](https://wangzhumei.github.io/mocap-2-to-3),
+> [Mingtao Pei](https://wangzhumei.github.io/mocap-2-to-3),
+> [Siyuan Huang](https://siyuanhuang.com/)<br>
+> **CVPR 2026**
 
 <p align="center">
     <img src=docs/image/teaser.png />

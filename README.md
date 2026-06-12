@@ -1,5 +1,6 @@
 # Mocap-2-to-3: Multi-view Lifting for Monocular Motion Recovery with 2D Pretraining
 ### [Project Page](https://wangzhumei.github.io/mocap-2-to-3) | [Paper](https://arxiv.org/abs/2503.03222)
+> **Mocap-2-to-3: Multi-view Lifting for Monocular Motion Recovery with 2D Pretraining**<br>
 > [Zhumei Wang](https://wangzhumei.github.io/zhumeiwang/)<sup>\*</sup>,
 > [Zechen Hu](https://wangzhumei.github.io/mocap-2-to-3)<sup>\*</sup>,
 > [Ruoxi Guo](https://www.researchgate.net/profile/Ruoxi-Guo-2),

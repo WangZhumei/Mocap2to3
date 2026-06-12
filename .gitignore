@@ -1,7 +1,5 @@
 res/
 outputs/
-hmr4d/dataset/rich/resource/
-hmr4d/dataset/AIST/resource/
 run.sh
 train.sh
 

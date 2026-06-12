@@ -98,10 +98,6 @@ inputs/
 └── checkpoints/
     └── huggingface/
         └── clip-vit-base-patch32/
-hmr4d/
-└── dataset/
-    └── rich/
-        └── resource/
 outputs/
 ├── 2dmotion_offset_richcam/
 │   └── mdm-smpl_rich/

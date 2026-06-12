@@ -63,7 +63,7 @@ tar -xf blender-4.4.3-linux-x64.tar.xz
 ~/software/blender-4.4.3-linux-x64/blender --version
 ```
 
-To make the `blender` command available in new shells, add it to `PATH`:
+> Note: to make the `blender` command available in new shells, add it to `PATH`.
 
 ```bash
 echo 'export PATH="$HOME/software/blender-4.4.3-linux-x64:$PATH"' >> ~/.bashrc

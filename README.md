@@ -50,6 +50,26 @@ pip install -v -e . --no-build-isolation
 cd ..
 ```
 
+If you want to render `.npy` motion results into videos, install Blender separately.
+
+
+```bash
+mkdir -p ~/software
+cd ~/software
+
+wget https://download.blender.org/release/Blender4.4/blender-4.4.3-linux-x64.tar.xz
+tar -xf blender-4.4.3-linux-x64.tar.xz
+
+~/software/blender-4.4.3-linux-x64/blender --version
+```
+
+To make the `blender` command available in new shells, add it to `PATH`:
+
+```bash
+echo 'export PATH="$HOME/software/blender-4.4.3-linux-x64:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
 
 
 ## Evaluation
@@ -175,6 +195,34 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 HYDRA_FULL_ERROR=1 python tools/train.py ex
 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 HYDRA_FULL_ERROR=1 python tools/train.py exp=mas_offset/motion2dmv/mdm ckpt_path=outputs/2dmotion_offset_richcam/mdm-smpl_rich/checkpoints/last.ckpt ckpt_type=pl data=motion2dmv_offset/HumanML3D_2dmv pl_trainer.devices=8
 ```
 
+
+## Visualization
+
+To visualize the prediction results saved in `./res`, first fit SMPLH vertices for each sub-sequence, then render the saved mesh `.npy` files into videos.
+
+### Step 1: fit SMPLH vertices
+
+```bash
+python tools/mas/joints2smpl.py \
+  --input ./res/your_saved_prediction.pth \
+  --output-dir ./render_result/npy/mocap-2-to-3 \
+  --device 0
+```
+
+This command reads the predicted joint motion from a saved `.pth` file under `./res/` and saves fitted mesh sequences under `./render_result/npy/mocap-2-to-3/`.
+
+### Step 2: render videos
+
+```bash
+python tools/mas/render_motion.py \
+  --dir ./render_result/npy/mocap-2-to-3 \
+  --output-dir ./render_result/video/mocap-2-to-3 \
+  --mode video \
+  --joint-type HumanML3D \
+  --device 0
+```
+
+This command renders every mesh `.npy` file in the folder and saves the final videos under `./render_result/video/mocap-2-to-3/`.
 
 
 

@@ -61,11 +61,8 @@ wget https://download.blender.org/release/Blender4.4/blender-4.4.3-linux-x64.tar
 tar -xf blender-4.4.3-linux-x64.tar.xz
 
 ~/software/blender-4.4.3-linux-x64/blender --version
-```
 
-> Note: to make the `blender` command available in new shells, add it to `PATH`.
-
-```bash
+# NOTE: to make the blender command available in new shells, add it to PATH.
 echo 'export PATH="$HOME/software/blender-4.4.3-linux-x64:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```

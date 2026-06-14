@@ -116,6 +116,16 @@ HYDRA_FULL_ERROR=1 python tools/train.py exp=mas_offset/rich_motion2dmv/mdm glob
 
 The test callback saves the prediction results under `./res/rich_smpl.pth`.
 
+### 2Dto3D online visualization
+
+To visualize the 2D-to-3D lifting results online during evaluation, append `+global/append=pampjpe_2dto3dVisualizerGlobal` to the evaluation command.
+
+```bash
+HYDRA_FULL_ERROR=1 python tools/train.py exp=mas_offset/rich_motion2dmv/mdm global/task=motion2dmv_offset/test2dmv "ckpt_path=[outputs/2dmotion_offset_richcam/mdm-smpl_rich/checkpoints/last.ckpt,outputs/2dmotionmv_persp_richcam_offset/mdm-smpl_mv/checkpoints/best.ckpt]" ckpt_type=pl_2d_mv model.pipeline.args.guidance_scale=1 +global/append=pampjpe_2dto3dVisualizerGlobal
+```
+
+This opens an Open3D window from the evaluation callback. It requires a GUI-capable environment.
+
 
 
 ## Training
